@@ -69,14 +69,12 @@ fun GameScreen(onGameComplete: (Int) -> Unit) {
         if (clickedButtons.size == 5) {
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = {
-                // Vérifier si les numéros sélectionnés sont triés dans l'ordre décroissant
                 if (clickedButtons == clickedButtons.sortedDescending()) {
                     val finalScore = 100 - (25 - timeLeft) * 4 // Calcul du score final
-                    onGameComplete(finalScore)
+                    onGameComplete(finalScore) // Naviguer vers l'écran de soumission
                 } else {
-                    // Afficher un message d'erreur en cas d'ordre incorrect
                     errorMessage = "Incorrect order! Try again."
-                    clickedButtons.clear() // Réinitialiser la sélection
+                    clickedButtons.clear()
                 }
             }) {
                 Text("Finish")
