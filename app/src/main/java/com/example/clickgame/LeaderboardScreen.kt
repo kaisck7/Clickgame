@@ -8,17 +8,23 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun LeaderboardScreen(leaderboard: SnapshotStateList<Pair<String, Int>>) {
     var isLoading by remember { mutableStateOf(true) }
 
-    // Charger les scores depuis Firestore au démarrage
     LaunchedEffect(Unit) {
-        val scores = FirebaseUtils.getScores()
-        leaderboard.clear()
-        leaderboard.addAll(scores.map { it.name to it.score })
-        isLoading = false
+        try {
+            val db = FirebaseFirestore.getInstance()
+            val scores = FirebaseUtils.getScores() // Supposons que cette fonction récupère les scores
+            leaderboard.clear()
+            leaderboard.addAll(scores.map { it.name to it.score })
+            isLoading = false
+        } catch (e: Exception) {
+            println("Error loading scores: $e")
+            isLoading = false
+        }
     }
 
     Column(

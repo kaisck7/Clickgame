@@ -57,4 +57,5 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:1.5.0")
     implementation("androidx.compose.ui:ui-tooling:1.5.3") // Pour tooling
     implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
+
 }
