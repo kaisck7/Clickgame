@@ -1,15 +1,15 @@
 package com.example.clickgame
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.runtime.snapshots.SnapshotStateList
 
 @Composable
 fun MyAppNavigation(leaderboard: SnapshotStateList<Pair<String, Int>>) {
-    val navController = rememberNavController()
+    val navController: NavHostController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "game") {
         composable("game") {
@@ -24,7 +24,7 @@ fun MyAppNavigation(leaderboard: SnapshotStateList<Pair<String, Int>>) {
             }
         }
         composable("leaderboard") {
-            LeaderboardScreen(leaderboard = leaderboard)
+            LeaderboardScreen(leaderboard = leaderboard, navController = navController)
         }
     }
 }

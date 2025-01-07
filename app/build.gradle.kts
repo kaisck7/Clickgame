@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose") // Ajout du plugin Compose
+    id("org.jetbrains.kotlin.plugin.compose") // Plugin Compose
+    id("com.google.gms.google-services") // Plugin Google Services pour Firebase
 }
 
 android {
@@ -45,17 +46,22 @@ android {
 }
 
 dependencies {
+    // Firebase BOM pour gérer les versions Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+
+    // Services Firebase nécessaires
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("androidx.compose.material3:material3:1.2.0")
+
+    // Android Jetpack
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation("androidx.navigation:navigation-compose:2.8.4")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
-
+    // Jetpack Compose
     implementation("androidx.compose.ui:ui:1.5.0")
     implementation("androidx.compose.material3:material3:1.2.0")
     implementation("androidx.compose.runtime:runtime:1.5.0")
-    implementation("androidx.compose.ui:ui-tooling:1.5.3") // Pour tooling
+    implementation("androidx.compose.ui:ui-tooling:1.5.3") // Pour outils UI
     implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
-
 }

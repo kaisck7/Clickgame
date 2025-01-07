@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ClickGame</string>
+    <string name="google_app_id">1:914998632974:android:6928bf27c6f33ee76f125f</string>
+    <string name="firebase_database_url">https://clickgame-941d8.firebaseio.com</string>
 </resources>

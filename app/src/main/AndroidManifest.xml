@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permissions nécessaires -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClickGame"
         tools:targetApi="31">
+
+        <!-- Configuration Firebase -->
+        <meta-data
+            android:name="com.google.firebase.analytics.APPLICATION_ID"
+            android:value="@string/google_app_id" />
+        <meta-data
+            android:name="com.google.firebase.database.DatabaseURL"
+            android:value="@string/firebase_database_url" />
+
+        <!-- Activité principale -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -20,7 +33,6 @@
             android:theme="@style/Theme.ClickGame">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
