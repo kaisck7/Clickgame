@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.snapshots.SnapshotStateList
+
 @Composable
 fun SubmitScoreScreen(
     score: Int,
@@ -34,8 +35,9 @@ fun SubmitScoreScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            if (name.isNotBlank()) {
-                // Sauvegarder dans Firestore
+            if (name.isBlank() || !name.matches(Regex("^[a-zA-Z0-9 ]+$"))) {
+                errorMessage = "Please enter a valid name (alphanumeric only)."
+            } else {
                 FirebaseUtils.saveScore(name, score,
                     onSuccess = {
                         leaderboard.add(name to score)

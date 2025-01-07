@@ -2,13 +2,13 @@ package com.example.clickgame
 
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import android.util.Log
 
 data class PlayerScore(val name: String, val score: Int)
 
 object FirebaseUtils {
     private val db = FirebaseFirestore.getInstance()
 
-    // Enregistrer un score dans Firestore
     fun saveScore(name: String, score: Int, onSuccess: () -> Unit, onError: (Exception) -> Unit) {
         val scoreData = hashMapOf(
             "name" to name,
@@ -19,10 +19,12 @@ object FirebaseUtils {
         db.collection("scores")
             .add(scoreData)
             .addOnSuccessListener { onSuccess() }
-            .addOnFailureListener { e -> onError(e) }
+            .addOnFailureListener { e ->
+                Log.e("FirebaseUtils", "Failed to save score: ${e.message}", e)
+                onError(e)
+            }
     }
 
-    // Récupérer les scores depuis Firestore
     suspend fun getScores(): List<PlayerScore> {
         return try {
             val result = db.collection("scores")
@@ -36,6 +38,7 @@ object FirebaseUtils {
                 if (name != null && score != null) PlayerScore(name, score) else null
             }
         } catch (e: Exception) {
+            Log.e("FirebaseUtils", "Error fetching scores: ${e.message}", e)
             emptyList()
         }
     }
